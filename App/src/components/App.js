@@ -10,6 +10,9 @@ class App extends Component {
     render() {
         return (
             <div>
+                <ChartB />
+                <ChartC />
+                <ChartD />
                 <ChartE />
             </div>
         )

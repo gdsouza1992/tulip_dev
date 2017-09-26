@@ -119,18 +119,17 @@ router.get('/getBytesByTimeBin', (req, res) => {
                 .groupBy("time_bin")
                 .value()
 
-            // var chartData = _.map(data, (hourly, timestamp) => {
-            //     	var g = {}
-            //     	g.time_bin = timestamp;
-            //     	_.forEach(hourly, (pageData) => {
-            //     		g["page_"+pageData.current_page] = parseInt(pageData.bytes_used)
-            //             g["count_page_"+pageData.current_page] = parseInt(pageData.count)
-            //     	})
-            //     	return g;
-            //     })
+            var chartData = _.map(data, (hourly, timestamp) => {
+                	var g = {}
+                	g.time_bin = timestamp;
+                	_.forEach(hourly, (pageData) => {
+                		g["page_"+pageData.current_page] = parseInt(pageData.bytes_used)
+                	})
+                	return g;
+                })
 
             // console.log(chartData)
-            res.json(data);
+            res.json(chartData);
         };
     })
 });

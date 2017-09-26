@@ -50,7 +50,6 @@ class ChartE extends Component {
                         </defs>
                         <XAxis dataKey="time_bin" />
                         <YAxis />
-                        <YAxis yAxisId="right" orientation="right"  domain={[0, 20]} stroke="#FF2FAA"/>
                         <CartesianGrid strokeDasharray="3 3" />
                         <Tooltip />
                         <Area connectNulls={true} type="monotone" dataKey={this.state.selectedPage} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
@@ -79,8 +78,7 @@ class ChartE extends Component {
 
 function mapStateToProps(state) {
     return {
-        ChartEProps: state.charts.chartE,
-        ChartCProps: state.charts.chartC
+        ChartEProps: state.charts.chartE
     }
 }
 

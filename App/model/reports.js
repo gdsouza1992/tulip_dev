@@ -33,9 +33,9 @@ report.getReportByTimeBin = (timeInSecs, currentPage, callback) => {
 }
 
 report.getBytesByTimeBin = (timeInSecs, currentPage, callback) => {
-    const sql = `SELECT COUNT(*)::INTEGER, SUM(bytes_used) as bytes_used, did_aww_snap, current_page, to_timestamp(floor(TIMESTAMP / $1::int8 ) * $1::int8) AS time_bin
+    const sql = `SELECT SUM(bytes_used) as bytes_used, current_page, to_timestamp(floor(TIMESTAMP / $1::int8 ) * $1::int8) AS time_bin
         FROM reports
-        GROUP BY time_bin, current_page, did_aww_snap
+        GROUP BY time_bin, current_page
         ORDER BY time_bin`;
     db.execute(sql, [timeInSecs], callback);
 }
