@@ -3,23 +3,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Brush, AreaChart, Area } from 'recharts';
 
-import { onLoadChartBDataAction } from '../actions/chartActions';
+import { fetchChartBData } from '../actions/chartActions';
 
 const _ = require('lodash');
 
 class ChartB extends Component {
 
-    constructor(props){
-        super(props);
-        this.props.client.on('load-chartB-data', this.onLoadChartBData);
-    }
 
     componentDidMount() {
-        this.props.client.bytesToFailure();
-    }
-
-    onLoadChartBData = (data) => {
-        this.props.onLoadChartBDataAction(data);
+        this.props.fetchChartBData();
     }
 
     render() {
@@ -41,9 +33,9 @@ class ChartB extends Component {
                         <YAxis padding={{ bottom: 10, top:10 }} domain={['dataMin - 100', 'dataMax + 100']}/>
                         <CartesianGrid stroke="#eee" strokeDasharray="1 1"/>
                         <Tooltip />
-                        <Line type="monotone" dataKey="max" stroke="#82CA9D" />
-                        <Line type="monotone" dataKey="average" stroke="#FF9800" />
-                        <Line type="monotone" dataKey="min" stroke="#8884D8" />
+                        <Line connectNulls={true} type="monotone" dataKey="max" stroke="#82CA9D" />
+                        <Line connectNulls={true} type="monotone" dataKey="average" stroke="#FF9800" />
+                        <Line connectNulls={true} type="monotone" dataKey="min" stroke="#8884D8" />
 
                       </LineChart>
                 </div>
@@ -59,7 +51,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({onLoadChartBDataAction}, dispatch);
+    return bindActionCreators({fetchChartBData}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartB);

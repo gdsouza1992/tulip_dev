@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import ChartB from './ChartB';
-import Client from '../lib/client';
+import ChartC from './ChartC';
+import ChartD from './ChartD';
+import ChartE from './ChartE';
+// import Client from '../lib/client';
 
 class App extends Component {
-
-    constructor() {
-        super();
-        this.client = new Client();
-    }
 
     render() {
         return (
             <div>
-                <ChartB client={this.client} />
+                <ChartE />
             </div>
         )
     }

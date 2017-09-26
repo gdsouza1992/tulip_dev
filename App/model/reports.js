@@ -18,8 +18,22 @@ report.getReportData = (callback) => {
     db.execute(sql, [], callback);
 }
 
-report.getReportByTimeBin = (timeInSecs, callback) => {
-    const sql = `SELECT COUNT(*), SUM(bytes_used) AS sum_bytes_used, did_aww_snap, current_page, to_timestamp(floor(TIMESTAMP / $1::int8 ) * $1::int8) AS time_bin
+report.getMetricsByPage = (callback) => {
+    const sql = `SELECT COUNT(*)::INTEGER as value, did_aww_snap, current_page as name FROM reports GROUP BY did_aww_snap, current_page`
+    db.execute(sql, [], callback);
+}
+
+report.getReportByTimeBin = (timeInSecs, currentPage, callback) => {
+
+    const sql = `SELECT COUNT(*)::INTEGER, current_page, to_timestamp(floor(TIMESTAMP / $1::int8 ) * $1::int8) AS time_bin
+        FROM reports WHERE did_aww_snap = true
+        GROUP BY time_bin, current_page
+        ORDER BY time_bin`;
+    db.execute(sql, [timeInSecs], callback);
+}
+
+report.getBytesByTimeBin = (timeInSecs, currentPage, callback) => {
+    const sql = `SELECT COUNT(*)::INTEGER, SUM(bytes_used) as bytes_used, did_aww_snap, current_page, to_timestamp(floor(TIMESTAMP / $1::int8 ) * $1::int8) AS time_bin
         FROM reports
         GROUP BY time_bin, current_page, did_aww_snap
         ORDER BY time_bin`;
@@ -39,5 +53,6 @@ report.getBytesToFailure = (callback) => {
     ) GROUP BY CURRENT_page`;
     db.execute(sql, [], callback);
 }
+
 
 module.exports = report;

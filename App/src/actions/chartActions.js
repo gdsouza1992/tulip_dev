@@ -1,38 +1,48 @@
-export const FETCH_CHARTB = 'FETCH_CHARTB';
-export const FETCH_CHARTB_SUCCESS = 'FETCH_CHARTB_SUCCESS';
-export const FETCH_CHARTB_FAILURE = 'FETCH_CHARTB_FAILURE';
+import axios from 'axios';
+const ROOT_URL = 'http://localhost:3001/api';
 
 
-// const ROOT_URL = 'http://localhost:3001/api/';
-export function onLoadChartBDataAction(data) {
-    return (dispatch) => {
-        dispatch(onLoadChartBData(data));
-    }
-}
+export const FETCH_CHART_B_COMPLETE = 'FETCH_CHART_B_COMPLETE';
+export const FETCH_CHART_C_COMPLETE = 'FETCH_CHART_C_COMPLETE';
+export const FETCH_CHART_D_COMPLETE = 'FETCH_CHART_D_COMPLETE';
+export const FETCH_CHART_E_COMPLETE = 'FETCH_CHART_E_COMPLETE';
 
-function onLoadChartBData(data){
+export function fetchChartBData() {
+    const url = `${ROOT_URL}/bytesToFailure`;
+    const request = axios.get(url);
+
     return {
-        type: FETCH_CHARTB_SUCCESS,
-        payload: data
+        type: FETCH_CHART_B_COMPLETE,
+        payload: request
     };
 }
 
-// export function LoadChartBDataAction() {
-//     const request = axios({
-//       method: 'get',
-//       url: `${ROOT_URL}/bytesToFailure`,
-//       headers: []
-//     });
-//     return {
-//         type: FETCH_CHARTB,
-//         payload: request
-//     };
-// }
+export function fetchChartCData() {
+    const url = `${ROOT_URL}/getReportByTimeBin`;
+    const request = axios.get(url);
 
-// export
+    return {
+        type: FETCH_CHART_C_COMPLETE,
+        payload: request
+    };
+}
 
-// const request = axios({
-//   method: 'get',
-//   url: `${ROOT_URL}/bytesToFailure`,
-//   headers: []
-// });
+export function fetchChartDData() {
+    const url = `${ROOT_URL}/getMetricsByPage`;
+    const request = axios.get(url);
+
+    return {
+        type: FETCH_CHART_D_COMPLETE,
+        payload: request
+    };
+}
+
+export function fetchChartEData() {
+    const url = `${ROOT_URL}/getBytesByTimeBin`;
+    const request = axios.get(url);
+
+    return {
+        type: FETCH_CHART_E_COMPLETE,
+        payload: request
+    };
+}
