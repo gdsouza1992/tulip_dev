@@ -21,12 +21,12 @@ class ChartD extends Component {
     };
 
     render() {
-        if(_.isEmpty(this.props.ChartDProps)){
+        if(_.isEmpty(this.props.chartDProps)){
             return(
                 <LoadingChart title={this.props.chartTitle}/>
             );
         } else {
-            const data = this.props.ChartDProps.data;
+            const data = this.props.chartDProps.data;
             return (
                 <div className='chartContainer'>
                     <p>{this.props.chartTitle}</p>
@@ -49,7 +49,7 @@ class ChartD extends Component {
 
 function mapStateToProps(state) {
     return {
-        ChartDProps: state.charts.chartD
+        chartDProps: state.charts.chartD
     }
 }
 

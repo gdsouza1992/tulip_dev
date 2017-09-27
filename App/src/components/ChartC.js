@@ -35,12 +35,12 @@ class ChartC extends Component {
     }
 
     render() {
-        if(_.isEmpty(this.props.ChartCProps)){
+        if(_.isEmpty(this.props.chartCProps)){
             return(
                 <LoadingChart title={this.props.chartTitle}/>
             );
         } else {
-            const data = this.props.ChartCProps.data;
+            const data = this.props.chartCProps.data;
             return (
                 <div className='chartContainer'>
                     <p>{this.props.chartTitle}<SelectDropDown onPageChange={this.onPageChange}/></p>
@@ -72,7 +72,7 @@ class ChartC extends Component {
 
 function mapStateToProps(state) {
     return {
-        ChartCProps: state.charts.chartC
+        chartCProps: state.charts.chartC
     }
 }
 
