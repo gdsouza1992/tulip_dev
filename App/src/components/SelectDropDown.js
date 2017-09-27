@@ -17,7 +17,6 @@ class SelectDropDown extends Component {
 
     render(){
         return (
-        
             <select value={this.state.selectedPage} onChange={this.handlePageChange}>
                 <option value="page_/">"/"</option>
                 <option value="page_/analytics">"/analytics"</option>

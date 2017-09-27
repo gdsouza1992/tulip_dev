@@ -43,31 +43,27 @@ class ChartC extends Component {
             const data = this.props.ChartCProps.data;
             return (
                 <div className='chartContainer'>
-                <p>{this.props.chartTitle}<SelectDropDown onPageChange={this.onPageChange}/></p>
-
-
-                      <ResponsiveContainer width="100%" height={300}>
-
-                          <AreaChart data={data}
-                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                            <defs>
-                              <linearGradient id="colorPv1" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="50%" stopColor="#2196F3" stopOpacity={0.8}/>
-                                <stop offset="100%" stopColor="#03A9F4" stopOpacity={0}/>
-                              </linearGradient>
-                            </defs>
-                            <XAxis stroke="#AAAAAA" dataKey="time_bin" tickFormatter={this.dateFormat}/>
-                            <YAxis stroke="#AAAAAA" />
-                            <CartesianGrid strokeDasharray="1 1" />
-                            <Tooltip itemStyle={{color: '#000'}} labelStyle={{display: 'none'}}/>
-                            <Area connectNulls={true} dataKey={this.state.selectedPage} strokeWidth="2" stroke="#000" fillOpacity={1} fill="url(#colorPv1)" />
-                            <Brush dataKey='time_bin' tickFormatter={this.removeTick} height={30} stroke="#000000">
-                                <AreaChart>
-                                    <Area connectNulls={true} dataKey={this.state.selectedPage} />
-                                </AreaChart>
-                            </Brush>
-                          </AreaChart>
-                      </ResponsiveContainer>
+                    <p>{this.props.chartTitle}<SelectDropDown onPageChange={this.onPageChange}/></p>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                        <defs>
+                            <linearGradient id="colorPv1" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="50%" stopColor="#2196F3" stopOpacity={0.8}/>
+                            <stop offset="100%" stopColor="#03A9F4" stopOpacity={0}/>
+                            </linearGradient>
+                        </defs>
+                        <XAxis stroke="#AAAAAA" dataKey="time_bin" tickFormatter={this.dateFormat}/>
+                        <YAxis stroke="#AAAAAA" />
+                        <CartesianGrid strokeDasharray="1 1" />
+                        <Tooltip itemStyle={{color: '#000'}} labelStyle={{display: 'none'}}/>
+                        <Area connectNulls={true} dataKey={this.state.selectedPage} strokeWidth="2" stroke="#000" fillOpacity={1} fill="url(#colorPv1)" />
+                        <Brush dataKey='time_bin' tickFormatter={this.removeTick} height={30} stroke="#000000">
+                            <AreaChart>
+                                <Area connectNulls={true} dataKey={this.state.selectedPage} />
+                            </AreaChart>
+                        </Brush>
+                    </AreaChart>
+                    </ResponsiveContainer>
                 </div>
             );
         }

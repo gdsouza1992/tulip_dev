@@ -12,15 +12,12 @@ const _ = require('lodash');
 
 class ChartB extends Component {
 
-
     componentDidMount() {
         this.props.fetchChartBData();
     }
 
     bytesToMB = (bytes) => {
-
         return bytes/1000000;
-
     }
 
     formatLabel = (label) => {
@@ -31,8 +28,6 @@ class ChartB extends Component {
         return value.substring(0,15);
     }
 
-
-
     render() {
         if(_.isEmpty(this.props.chartBProps)){
             return(
@@ -42,21 +37,19 @@ class ChartB extends Component {
             const data = this.props.chartBProps.data;
             return (
                 <div className='chartContainer'>
-                      <p>{this.props.chartTitle}</p>
-                      <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <XAxis stroke="#AAAAAA" padding={{ left: 20, right:20 }} dataKey="current_page" tickFormatter={this.truncateText}/>
-                        <YAxis stroke="#AAAAAA" padding={{ bottom: 10, top:10 }} unit='MB' domain={['auto', 'auto']}/>
-                        <CartesianGrid stroke="#FFFFFF" strokeDasharray="1 1"/>
-                        <Legend/>
-                        <Tooltip itemStyle={{color: '#000000'}} labelStyle={{display: 'none'}} formatter={this.formatLabel}/>
-                        <Line connectNulls={true} type="monotone" dataKey="max" stroke="#FF5722" strokeWidth="2"/>
-                        <Line connectNulls={true} type="monotone" dataKey="average" stroke="#FF9800" strokeWidth="2"/>
-                        <Line connectNulls={true} type="monotone" dataKey="min" stroke="#CDDC39" strokeWidth="2"/>
-
-                      </LineChart>
-                      </ResponsiveContainer>
-
+                    <p>{this.props.chartTitle}</p>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <XAxis stroke="#AAAAAA" padding={{ left: 20, right:20 }} dataKey="current_page" tickFormatter={this.truncateText}/>
+                            <YAxis stroke="#AAAAAA" padding={{ bottom: 10, top:10 }} unit='MB' domain={['auto', 'auto']}/>
+                            <CartesianGrid stroke="#FFFFFF" strokeDasharray="1 1"/>
+                            <Legend/>
+                            <Tooltip itemStyle={{color: '#000000'}} labelStyle={{display: 'none'}} formatter={this.formatLabel}/>
+                            <Line connectNulls={true} type="monotone" dataKey="max" stroke="#FF5722" strokeWidth="2"/>
+                            <Line connectNulls={true} type="monotone" dataKey="average" stroke="#FF9800" strokeWidth="2"/>
+                            <Line connectNulls={true} type="monotone" dataKey="min" stroke="#CDDC39" strokeWidth="2"/>
+                        </LineChart>
+                    </ResponsiveContainer>
                 </div>
             );
         }

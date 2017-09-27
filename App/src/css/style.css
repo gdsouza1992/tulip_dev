@@ -21,7 +21,7 @@ select {
     -webkit-border-radius: 0px;
 }
 .isLoading{
-    height: 300px;
+    height: 366px;
 }
 .chartContainer{
     width: 50%;
@@ -44,7 +44,7 @@ select {
   border-top: 10px solid #2196F3;
   width: 80px;
   height: 80px;
-  margin: 0 auto;
+  margin: 50px auto;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Report = require('../../model/reports');
+const Report = require('../model/reports');
 const _ = require('lodash');
 
 router.get('/', (req, res) => {

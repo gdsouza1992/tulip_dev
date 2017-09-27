@@ -6,7 +6,6 @@ import LoadingChart from './LoadingChart';
 import { fetchChartDData } from '../actions/chartActions';
 
 const _ = require('lodash');
-const RADIAN = Math.PI / 180;
 const COLORS = ['#FF5722', '#FF9800', '#CDDC39', '#3F51B5', '#673AB7', '#4CAF50'];
 
 
@@ -17,15 +16,8 @@ class ChartD extends Component {
     }
 
 
-    renderCustomizedLabel = () => ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-        const x  = cx + radius * Math.cos(-midAngle * RADIAN);
-        const y = cy  + radius * Math.sin(-midAngle * RADIAN);
-        return (
-            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} 	dominantBaseline="central">
-                {`${(percent * 100).toFixed(0)}%`}
-            </text>
-        );
+    renderLabels = (piePart)=>{
+        return `${piePart.value} %`;
     };
 
     render() {
@@ -41,23 +33,14 @@ class ChartD extends Component {
                     <ResponsiveContainer width="100%" height={300}>
                         <PieChart onMouseEnter={this.onPieEnter}>
                             <Legend align="right" verticalAlign="bottom" layout="vertical" iconType="circle" margin={{top:200}}/>
-                          <Pie
-                            data={data}
-                            dataKey="value"
-                            innerRadius={60}
-                            outerRadius={120}
-                            labelLine={false}
-                            label
-                            stroke="#000000"
-                            strokeWidth="2"
-                          >{
-                              data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
-                            }
-                          </Pie>
-                          <Tooltip />
+                            <Pie label={this.renderLabels} data={data} dataKey="value" innerRadius={60} outerRadius={120} labelLine={false} stroke="#000000" strokeWidth="2">
+                                {
+                                    data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
+                                }
+                            </Pie>
+                            <Tooltip />
                         </PieChart>
                     </ResponsiveContainer>
-
                 </div>
             );
         }
