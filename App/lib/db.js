@@ -14,14 +14,13 @@ db.execute = (sql, params, callback) => {
 
     client.connect((err) => {
         if (err) {
-            logger.error(' ' + err);
+            console.log(err);
         }
     });
 
     client.query(sql, params, (err, results) => {
         if (err) {
             console.log(err);
-            // logger.error('query string', sql, 'params', params, ' err: ', err);
             callback(err);
         } else {
             callback(null, results.rows);

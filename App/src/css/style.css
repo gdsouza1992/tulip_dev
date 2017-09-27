@@ -1,0 +1,65 @@
+body {
+    background-color: #131313;
+    color: #fcfcfc;
+    font-family: "Akkurat-Regular",sans-serif;
+}
+
+select {
+    font-size: 17px;
+    background: none;
+    color: white;
+    border: none;
+    margin-left: 15px;
+    text-overflow: ellipsis;
+    text-align-last:center;
+    padding: 8px;
+    background-color: #03A9F4;
+    /* color: #2f343e; */
+    -o-border-image: initial;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+}
+.isLoading{
+    height: 300px;
+}
+.chartContainer{
+    width: 50%;
+    float: left;
+    position: relative;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.chartContainer>p{
+    height: 36px;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.spinner {
+  border: 10px solid #EEEEEE;
+  border-radius: 50%;
+  border-top: 10px solid #2196F3;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 770px) {
+    .chartContainer{
+        width: 100%;
+    }
+}

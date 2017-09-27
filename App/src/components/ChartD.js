@@ -1,21 +1,16 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { PieChart, Pie, Sector, Cell, Tooltip } from 'recharts';
-
-
+import { PieChart, Pie, ResponsiveContainer, Cell, Legend, Tooltip } from 'recharts';
+import LoadingChart from './LoadingChart';
 import { fetchChartDData } from '../actions/chartActions';
 
 const _ = require('lodash');
 const RADIAN = Math.PI / 180;
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#28DF42', '#FF2242'];
+const COLORS = ['#FF5722', '#FF9800', '#CDDC39', '#3F51B5', '#673AB7', '#4CAF50'];
 
 
 class ChartD extends Component {
-
-    constructor(props){
-        super(props);
-    }
 
     componentDidMount() {
         this.props.fetchChartDData();
@@ -36,34 +31,33 @@ class ChartD extends Component {
     render() {
         if(_.isEmpty(this.props.ChartDProps)){
             return(
-                <div>
-                    <p>Loading Chart...</p>
-                </div>
+                <LoadingChart title={this.props.chartTitle}/>
             );
         } else {
             const data = this.props.ChartDProps.data;
-            console.log(data);
             return (
-                <div>
-                    <p>GOT data {data.length}</p>
-                    <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
-                      <Pie
-                        data={data}
-                        dataKey="value"
-                        cx={300}
-                        cy={200}
-                        innerRadius={30}
-                        outerRadius={80}
-                        labelLine={false}
-                        label
-                        outerRadius={80}
-                        fill="#8884d8"
-                      >{
-                          data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
-                        }
-                      </Pie>
-                      <Tooltip/>
-                    </PieChart>
+                <div className='chartContainer'>
+                    <p>{this.props.chartTitle}</p>
+                    <ResponsiveContainer width="100%" height={300}>
+                        <PieChart onMouseEnter={this.onPieEnter}>
+                            <Legend align="right" verticalAlign="bottom" layout="vertical" iconType="circle" margin={{top:200}}/>
+                          <Pie
+                            data={data}
+                            dataKey="value"
+                            innerRadius={60}
+                            outerRadius={120}
+                            labelLine={false}
+                            label
+                            stroke="#000000"
+                            strokeWidth="2"
+                          >{
+                              data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
+                            }
+                          </Pie>
+                          <Tooltip />
+                        </PieChart>
+                    </ResponsiveContainer>
+
                 </div>
             );
         }

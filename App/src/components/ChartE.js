@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Brush, AreaChart, Area, linearGradient, defs } from 'recharts';
-
+import { ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Brush, BarChart, Bar, linearGradient, defs } from 'recharts';
+import SelectDropDown from './SelectDropDown';
 import { fetchChartEData } from '../actions/chartActions';
+import LoadingChart from './LoadingChart';
 
 const _ = require('lodash');
 
@@ -16,60 +17,56 @@ class ChartE extends Component {
         }
     }
 
+    removeTick = (time) => {
+        return "";
+    }
+
+    dateFormat = (time) => {
+        var HHmmss = time.split(' ')[4].split(':')
+        return (HHmmss[0]+":"+HHmmss[1]);
+    }
+
     componentDidMount() {
         this.props.fetchChartEData();
     }
 
-    handlePageChange = (event) => {
-        this.setState({selectedPage: event.target.value});
+    onPageChange = (value) => {
+        this.setState({selectedPage: value});
     }
 
     render() {
         if(_.isEmpty(this.props.ChartEProps)){
             return(
-                <div>
-                    <p>Loading Chart...</p>
-                </div>
+                <LoadingChart title={this.props.chartTitle}/>
             );
         } else {
             const data = this.props.ChartEProps.data;
             return (
-                <div>
-                      <p>GOT CHART E data {data.length}</p>
-
-
-
-
-                      <AreaChart width={730} height={250} data={data}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                <div className="chartContainer">
+                      <p>{this.props.chartTitle}<SelectDropDown onPageChange={this.onPageChange}/></p>
+                      <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={data}
+                            margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                         <defs>
-                          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-                            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                          <linearGradient id="colorPv2" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="50%" stopColor="#2196F3" stopOpacity={0.8}/>
+                            <stop offset="100%" stopColor="#03A9F4" stopOpacity={0}/>
                           </linearGradient>
                         </defs>
-                        <XAxis dataKey="time_bin" />
-                        <YAxis />
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <Tooltip />
-                        <Area connectNulls={true} type="monotone" dataKey={this.state.selectedPage} stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                        <Brush dataKey='time_bin' height={30} stroke="#8884d8"/>
-                      </AreaChart>
+                        <XAxis stroke="#AAAAAA" dataKey="time_bin" tickFormatter={this.dateFormat}/>
+                        <YAxis stroke="#AAAAAA" />
+                        <CartesianGrid stroke="#999" strokeDasharray="1 1"/>
+                        <Tooltip itemStyle={{color: '#000'}} labelStyle={{display: 'none'}}/>
+                        <Bar dataKey={this.state.selectedPage} fill="#2196F3" fillOpacity={1} stroke="#000000"/>
+                        <Brush dataKey='time_bin' fill="#FFFFFF" tickFormatter={this.removeTick} height={30} strokeWidth="3" stroke="#000000" >
+                           <BarChart>
+                               <Bar fill="#2196F3" dataKey={this.state.selectedPage} />
+                           </BarChart>
+                        </Brush>
+                        </BarChart>
 
 
-
-
-
-
-
-                      <select value={this.state.selectedPage} onChange={this.handlePageChange}>
-                          <option value="page_/">"/"</option>
-                          <option value="page_/analytics">"/analytics"</option>
-                          <option value="page_/data">"/data"</option>
-                          <option value="page_/player">"/player"</option>
-                          <option value="page_/processes">"/processes"</option>
-                          <option value="page_/processes/editor">"/processes/editor"</option>
-                    </select>
+                    </ResponsiveContainer>
                 </div>
             );
         }

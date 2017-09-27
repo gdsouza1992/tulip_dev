@@ -3,7 +3,6 @@ const db = require('../lib/db');
 const report = {};
 
 report.getDataByDate = (startDate, endDate, callback) => {
-    console.log(startDate, endDate);
     const sql = `SELECT *
         FROM reports
         WHERE TIMESTAMP BETWEEN
@@ -33,7 +32,7 @@ report.getReportByTimeBin = (timeInSecs, currentPage, callback) => {
 }
 
 report.getBytesByTimeBin = (timeInSecs, currentPage, callback) => {
-    const sql = `SELECT SUM(bytes_used) as bytes_used, current_page, to_timestamp(floor(TIMESTAMP / $1::int8 ) * $1::int8) AS time_bin
+    const sql = `SELECT (SUM(bytes_used) / 1000000000)  as bytes_used, current_page, to_timestamp(floor(TIMESTAMP / $1::int8 ) * $1::int8) AS time_bin
         FROM reports
         GROUP BY time_bin, current_page
         ORDER BY time_bin`;
@@ -41,7 +40,7 @@ report.getBytesByTimeBin = (timeInSecs, currentPage, callback) => {
 }
 
 report.getBytesToFailure = (callback) => {
-    const sql = `SELECT ROUND(AVG(bytes_used), 0) as average ,MIN(bytes_used),MAX(bytes_used), current_page FROM reports WHERE id IN (
+    const sql = `SELECT ROUND(AVG(bytes_used) / 1000000, 0) as average ,MIN(bytes_used/1000000),MAX(bytes_used/1000000), current_page FROM reports WHERE id IN (
         SELECT prev_id
         FROM (
             SELECT id,
@@ -50,7 +49,7 @@ report.getBytesToFailure = (callback) => {
             FROM reports
         ) AS t
         WHERE did_aww_snap = 'true'
-    ) GROUP BY CURRENT_page`;
+    ) GROUP BY current_page ORDER BY current_page`;
     db.execute(sql, [], callback);
 }
 

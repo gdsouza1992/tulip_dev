@@ -1,22 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const Report = require('../../model/reports');
-
-const utils = require('../../lib/utils');
 const _ = require('lodash');
-
 
 router.get('/', (req, res) => {
     res.json(
         { apiUrls: [
-                "/getDataByDate",
-                "/getReportData",
+                "/bytesToFailure",
                 "/getReportByTimeBin",
-                "/bytesToFailure"
+                "/getMetricsByPage",
+                "/getBytesByTimeBin"
             ]
         }
     );
 });
+
+
+
+
+
+
+
 
 router.get('/getDataByDate', (req, res) => {
     const startDate = req.query.startDate;
@@ -28,7 +32,6 @@ router.get('/getDataByDate', (req, res) => {
                 res.json({message: "Error in getting /getDataByDate"})
             }
             else {
-                // console.log(results)
                 res.json(results);
             };
         });
@@ -42,7 +45,6 @@ router.get('/getReportData', (req, res) => {
             res.json({message: "Error in getting /getReportData"})
         }
         else {
-            // console.log(results)
             res.json(results);
         };
     });
@@ -55,7 +57,6 @@ router.get('/getMetricsByPage', (req, res) => {
             res.json({message: "Error in getting /getMetricsByPage"});
         }
         else {
-            console.log(results);
             var data = _.chain(results)
                 .groupBy("did_aww_snap")
                 .value()
@@ -97,8 +98,6 @@ router.get('/getReportByTimeBin', (req, res) => {
                 	})
                 	return g;
                 })
-
-            // console.log(chartData)
             res.json(chartData);
         };
     })
@@ -123,12 +122,10 @@ router.get('/getBytesByTimeBin', (req, res) => {
                 	var g = {}
                 	g.time_bin = timestamp;
                 	_.forEach(hourly, (pageData) => {
-                		g["page_"+pageData.current_page] = parseInt(pageData.bytes_used)
+                		g["page_"+pageData.current_page] = parseInt(pageData.bytes_used, 10)
                 	})
                 	return g;
                 })
-
-            // console.log(chartData)
             res.json(chartData);
         };
     })
@@ -143,7 +140,6 @@ router.get('/bytesToFailure', (req, res) => {
             res.json({message: "Error in getting /bytesToFailure"})
         }
         else {
-            console.log(results)
             res.json(results);
         };
     });
