@@ -10,8 +10,8 @@ class App extends Component {
         return (
             <div>
                 <ChartB chartTitle="LOAD BEFORE CRASH in MB"/>
-                <ChartC chartTitle="HOURLY CRASHES by PAGE"/>
-                <ChartE chartTitle="LOAD BEFORE CRASH in GB by PAGE"/>
+                <ChartC chartTitle="HOURLY CRASHES by PAGE : "/>
+                <ChartE chartTitle="LOAD BEFORE CRASH in GB by PAGE :"/>
                 <ChartD chartTitle="CRASH DISTRIBUTION by PAGE"/>
             </div>
         )

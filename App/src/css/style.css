@@ -8,6 +8,7 @@ select {
     font-size: 17px;
     background: none;
     color: white;
+    cursor: pointer;
     border: none;
     margin-left: 15px;
     text-overflow: ellipsis;

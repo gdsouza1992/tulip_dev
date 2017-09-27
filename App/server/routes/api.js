@@ -6,49 +6,14 @@ const _ = require('lodash');
 router.get('/', (req, res) => {
     res.json(
         { apiUrls: [
-                "/bytesToFailure",
-                "/getReportByTimeBin",
                 "/getMetricsByPage",
-                "/getBytesByTimeBin"
+                "/getReportByTimeBin",
+                "/getBytesByTimeBin",
+                "/bytesToFailure"
             ]
         }
     );
 });
-
-
-
-
-
-
-
-
-router.get('/getDataByDate', (req, res) => {
-    const startDate = req.query.startDate;
-    const endDate = req.query.endDate;
-    if(startDate !== 'undefined' && endDate !== 'undefined'){
-        Report.getDataByDate(startDate, endDate, (err, results) => {
-            if(err) {
-                console.log(err);
-                res.json({message: "Error in getting /getDataByDate"})
-            }
-            else {
-                res.json(results);
-            };
-        });
-    }
-});
-
-router.get('/getReportData', (req, res) => {
-    Report.getReportData((err, results) => {
-        if(err) {
-            console.log(err);
-            res.json({message: "Error in getting /getReportData"})
-        }
-        else {
-            res.json(results);
-        };
-    });
-})
 
 router.get('/getMetricsByPage', (req, res) => {
     Report.getMetricsByPage((err, results) => {
@@ -130,8 +95,6 @@ router.get('/getBytesByTimeBin', (req, res) => {
         };
     })
 });
-
-
 
 router.get('/bytesToFailure', (req, res) => {
     Report.getBytesToFailure((err, results) => {
