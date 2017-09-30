@@ -1,9 +1,9 @@
 {
     "db": {
-        "host": "aws-us-east-1-portal.8.dblayer.com",
-        "user": "candidate",
-        "password": "giap-quib-fac-wav-mi",
-        "database": "memory_tracker",
-        "port": 10131
+        "host": "####",
+        "user": "####",
+        "password": "####",
+        "database": "###",
+        "port": ####
     }
 }
